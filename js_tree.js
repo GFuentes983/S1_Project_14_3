@@ -45,7 +45,7 @@ var wsCount = 0;
 window.addEventListener('load', makeTree());
 
 // Creating the makeTree function - Step 7
-function makeTree(argument) {
+function makeTree() {
    // Creating an Element Fragment
    var treeBox = document.createElement("aside");
    treeBox.setAttribute('id', "treeBox");
@@ -74,15 +74,38 @@ function makeBranches(treeNode, nestedlist) {
    // HTML Fragment to store the list item elements
    var liElem = document.createElement("li");
    var spanElem = document.createElement("span");
-   var text = "+__";
-   liElem.appendChild(text, spanElem);
+   var text = document.createTextNode("+__");
+   console.log(liElem);
+   console.log(spanElem);
+   liElem.appendChild(text ,spanElem);
    spanElem.appendChild(liElem);
-
-   if (treeNode === ) {
+console.log(nodeTree);
+   if (nodeTree.nodeType == 1) {
       elementCount++;
       spanElem.setAttribute('class', elementNode);
       spanElem.textContent += "<element>";
+   } else if (treeNode.nodeType == 3) {
+      textCount++; 
+      var textString = treeNode.value;
+      isWhiteSpaceNode(textString);
+      if (isWhiteSpaceNode(textString) === true) {
+         wsCount++;
+         spanElem.setAttribute('class', "whiteSpaceNode");
+         spanElem += "#text";
+   } else if (isWhiteSpaceNode(textString) === false) {
+      spanElem.class = "textNode";
+      spanElem += textString.value;
+      }
    }
+   
+   if (treeNode.childElementCount > 0) {
+      var newList = document.createElement("ol");
+      newList.textContent = "|";
+      for (var n = treeNode.childNodes; n = n.childElementCount; n !== null) {
+         makeBranches(n, newList);
+      }
+   }
+   return makeBranches();
 }
 
 
